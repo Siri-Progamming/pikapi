@@ -5,8 +5,16 @@
     <button (click)="switchLanguage('en')">English</button>
     <button (click)="switchLanguage('fr')">Français</button>
   </div>
-  <div>
-    {{pokemons}}
+  <div *ngIf="pokemonsState$ | async as state">
+    <div *ngIf="state.state === 'loading'">Loading...</div>
+    <div *ngIf="state.state === 'error'">Error: {{ state.error.message }}</div>
+    <div *ngIf="state.state === 'loaded'">
+      <ul>
+        <li *ngFor="let pokemon of state.data">
+          {{ pokemon.name }}
+        </li>
+      </ul>
+    </div>
   </div>
 </main>
 
