@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {RouterOutlet} from "@angular/router";
 import {TranslateModule} from '@ngx-translate/core';
 import { TranslationService } from './services/TranslationService';
+import {PokeapiService} from "./services/pokeapi.service";
 
 
 @Component({
@@ -12,8 +13,11 @@ import { TranslationService } from './services/TranslationService';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  constructor(private translationService: TranslationService) {}
+  constructor(private translationService: TranslationService, private pokeApiService: PokeapiService) {}
   title = 'pikapi';
+  pokemons = this.pokeApiService.getPokemonList(0,1500).subscribe((response) =>{
+    //response.results.map(p => p.name)
+  });
 
   switchLanguage(lang: string) {
     this.translationService.switchLanguage(lang);

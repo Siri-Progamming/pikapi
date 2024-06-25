@@ -1,17 +1,15 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { API_CONFIG } from '../config/api.config';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {PokeapiFetchService} from "./pokeapi.fetch.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokeapiService {
-  private baseUrl = API_CONFIG.baseUrl;
+  constructor(private pokeApiFetchService: PokeapiFetchService) {
+  }
 
-  constructor(private http: HttpClient) { }
-
-  getPokemonList(limit: number = 20, offset: number = 0): Observable<any> {
-    return this.http.get(`${this.baseUrl}/pokemon?limit=${limit}&offset=${offset}`);
+  getPokemonList(offset: number = 0, limit: number): Observable<any> {
+    return this.pokeApiFetchService.getPokemonList(offset, limit);
   }
 }
