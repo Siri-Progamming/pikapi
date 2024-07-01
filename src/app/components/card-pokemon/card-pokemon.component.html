@@ -1,0 +1,40 @@
+<p>{{ pokemon.name }}</p>
+
+<table>
+  <caption>Default Sprites</caption>
+  <thead>
+  <tr>
+    <th *ngIf="pokemon.sprites.front_default">Front</th>
+    <th *ngIf="pokemon.sprites.back_default">Back</th>
+    <th *ngIf="pokemon.sprites.front_shiny">Front Shiny</th>
+    <th *ngIf="pokemon.sprites.back_shiny">Back Shiny</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td *ngIf="pokemon.sprites.front_default"><img [src]="pokemon.sprites.front_default" alt="pokemon"/></td>
+    <td *ngIf="pokemon.sprites.back_default"><img [src]="pokemon.sprites.back_default" alt="pokemon"/></td>
+    <td *ngIf="pokemon.sprites.front_shiny"><img [src]="pokemon.sprites.front_shiny" alt="pokemon"/></td>
+    <td *ngIf="pokemon.sprites.back_shiny"><img [src]="pokemon.sprites.back_shiny" alt="pokemon"/></td>
+  </tr>
+  </tbody>
+</table>
+<table *ngIf="pokemon.sprites.front_female || pokemon.sprites.front_shiny_female">
+  <caption>Female Sprites</caption>
+  <thead>
+  <tr>
+    <th *ngIf="pokemon.sprites.front_female">Front ♀</th>
+    <th *ngIf="pokemon.sprites.back_female">Back ♀</th>
+    <th *ngIf="pokemon.sprites.front_shiny_female">Front Shiny ♀</th>
+    <th *ngIf="pokemon.sprites.back_shiny_female">Back Shiny ♀</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td *ngIf="pokemon.sprites.front_female"><img [src]="pokemon.sprites.front_female" alt="pokemon"/></td>
+    <td *ngIf="pokemon.sprites.back_female"><img [src]="pokemon.sprites.back_female" alt="pokemon"/></td>
+    <td *ngIf="pokemon.sprites.front_shiny_female"><img [src]="pokemon.sprites.front_shiny_female" alt="pokemon"/></td>
+    <td *ngIf="pokemon.sprites.back_shiny_female"><img [src]="pokemon.sprites.back_shiny_female" alt="pokemon"/></td>
+  </tr>
+  </tbody>
+</table>

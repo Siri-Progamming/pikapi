@@ -1,6 +1,7 @@
 <main class="main">
   <div>
     <h1>Hello, {{ title }}</h1>
+    <p>Current language : {{ currentLang }}</p>
     <p>{{ 'TEST' | translate }}</p>
     <button (click)="switchLanguage('en')">English</button>
     <button (click)="switchLanguage('fr')">Français</button>
@@ -10,12 +11,24 @@
     <div *ngIf="state.state === 'error'">Error: {{ state.error.message }}</div>
     <div *ngIf="state.state === 'loaded'">
       <ul>
-        <li *ngFor="let pokemon of state.data">
+        <li *ngFor="let pokemon of state.data" (click)="handleClickOnPokemonListItem(pokemon.url)">
+          <!--          <a [href]="pokemon.url">{{ pokemon.name }}</a>-->
           {{ pokemon.name }}
         </li>
       </ul>
     </div>
   </div>
+  <ng-container *ngIf="pokemonSelectedState$ | async as state">
+    <div *ngIf="state.state === 'loading'">
+      Loading...
+    </div>
+    <div *ngIf="state.state === 'loaded'">
+      <app-card-pokemon [pokemon]="state.data"></app-card-pokemon>
+    </div>
+    <div *ngIf="state.state === 'error'">
+      Error loading Pokémon: {{ state.error }}
+    </div>
+  </ng-container>
 </main>
 
 <router-outlet/>

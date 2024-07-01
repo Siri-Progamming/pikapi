@@ -1,8 +1,10 @@
 const baseURL = 'https://pokeapi.co/api/v2';
 export const API_CONFIG = {
   baseURL: baseURL,
+  pokemon: baseURL + '/pokemon',
   //https://pokeapi.co/api/v2/type?offset=0&limit=21
-  poke_type: baseURL + '/type'
+  poke_type: baseURL + '/type',
+  pokemon_species: baseURL + '/pokemon-species',
 };
 
 
