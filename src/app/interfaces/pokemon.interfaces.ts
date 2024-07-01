@@ -1,6 +1,8 @@
+import {setThrowInvalidWriteToSignalError} from "@angular/core/primitives/signals";
+
 export interface PokemonListItem {
-  name:string;
-  url:string;
+  name: string;
+  url: string;
 }
 
 export interface Pokemon {
@@ -8,13 +10,20 @@ export interface Pokemon {
   is_default: boolean;
   name: string;
   species: PokemonSpecies;
-  sprites: sprites;
+  sprites: Sprites;
   types: Type[] | null;
   weight: number;
   height: number;
 }
 
-export interface sprites {
+export interface Name {
+  language: {
+    name: string;
+  }
+  name: string;
+}
+
+export interface Sprites {
   back_default: string | null;
   back_female: string | null;
   back_shiny: string | null;
@@ -25,16 +34,18 @@ export interface sprites {
   front_shiny_female: string | null;
   //y'en a d'autres
 }
+
 export interface PokemonSpecies {
   id: number;
   name: string; //trad! names/language name fr -> /name
+  names: Name[];
   capture_rate: number;
   color: string; //trad sur https://pokeapi.co/api/v2/pokemon-color/5/
   //evolution_chain
   //evolves_from_species
   //flavor_text_entries
   gender_rate: number;
-  genera:string; //trad! /language contains fr -> /genus
+  genera: string; //trad! /language contains fr -> /genus
   generation: string;
   growth_rate: string; //trad https://pokeapi.co/api/v2/growth-rate/4/
   habitat: string; //trad https://pokeapi.co/api/v2/pokemon-habitat/4/
@@ -46,6 +57,7 @@ export interface PokemonSpecies {
   shape: string; //trad https://pokeapi.co/api/v2/pokemon-shape/8/
   url: string;
 }
+
 export interface Type {
   //https://pokeapi.co/api/v2/type/10/
   slot: number;

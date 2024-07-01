@@ -40,6 +40,6 @@ export class AppComponent implements OnInit {
   }
 
   handleClickOnPokemonListItem(url: string) {
-    this.pokemonSelectedState$ = this.pokeApiService.getPokemonDetails(url);
+    this.pokemonSelectedState$ = this.pokeApiService.getPokemonFullDetails(url);
   }
 }

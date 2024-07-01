@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable, tap} from 'rxjs';
+import {Observable, of, switchMap, tap} from 'rxjs';
 import {PokeapiFetchService} from "./pokeapi.fetch.service";
 import {LoadingState} from "../interfaces/loading-state.interface";
 import {toLoadingStateStream} from '../to-loading-state-stream';
 import {map} from "rxjs/operators";
-import {Pokemon, PokemonListItem} from "../interfaces/pokemon.interfaces";
+import {Pokemon, PokemonListItem, PokemonSpecies} from "../interfaces/pokemon.interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -41,4 +41,22 @@ export class PokeapiService {
     );
     return toLoadingStateStream(data$);
   }
+
+  getPokemonSpeciesDetails(url: string): Observable<LoadingState<PokemonSpecies>> {
+    const data$ = this.pokeApiFetchService.getPokemonSpeciesDetails(url).pipe(
+      tap(response => console.log('pokeapi.service.ts getPokemonSpeciesDetails response:', response))
+    );
+    return toLoadingStateStream(data$);
+  }
+
+  /*
+  * Get combined pokemon + pokemon species data by pokemon api url
+   */
+  getPokemonFullDetails(url: string): Observable<LoadingState<Pokemon>> {
+    const data$ = this.pokeApiFetchService.getPokemonWithSpeciesDetails(url).pipe(
+      tap(response => console.log('pokeapi.service.ts getPokemonFullDetails response:', response))
+    );
+    return toLoadingStateStream(data$);
+  }
+
 }

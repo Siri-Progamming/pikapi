@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Pokemon} from "../../interfaces/pokemon.interfaces";
+import {Name, Pokemon} from "../../interfaces/pokemon.interfaces";
 import {NgIf} from "@angular/common";
 
 @Component({
@@ -13,4 +13,9 @@ import {NgIf} from "@angular/common";
 })
 export class CardPokemonComponent {
   @Input() pokemon!: Pokemon;
+
+  getTranslatedName(names:Name[], lang:string): string {
+    const translatedName = names.find(name => name.language.name === lang);
+    return translatedName ? translatedName.name : 'N/A';
+  }
 }

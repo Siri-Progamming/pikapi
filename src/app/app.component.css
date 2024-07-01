@@ -63,6 +63,10 @@ main {
   position: relative;
 }
 
+#pokemon-list{
+  max-height: 100vh;
+  overflow-y: auto;
+}
 @media screen and (max-width: 650px) {
   .content {
     flex-direction: column;

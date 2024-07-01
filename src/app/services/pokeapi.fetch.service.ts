@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, of, switchMap} from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
 import {Pokemon, PokemonListItem} from "../interfaces/pokemon.interfaces";
 import {TranslationService} from "./translation.service";
@@ -52,4 +52,23 @@ export class PokeapiFetchService {
   getPokemonSpeciesDetailsById(id:number): Observable<any> {
     return this.http.get(`${API_CONFIG.pokemon_species}/${id}`);
   }
+
+
+  // COMBINING //
+  /*
+  * Get combined pokemon + pokemon species data by pokemon api url
+   */
+  getPokemonWithSpeciesDetails(url: string): Observable<Pokemon> {
+    return this.getPokemonDetails(url).pipe(
+      switchMap(pokemon => {
+        return this.getPokemonSpeciesDetails(pokemon.species.url).pipe(
+          switchMap(species => {
+            pokemon.species = species
+            return of(pokemon);
+          })
+        );
+      })
+    );
+  }
+
 }
