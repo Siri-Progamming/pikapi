@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable, of, switchMap, tap} from 'rxjs';
 import {PokeapiFetchService} from "./pokeapi.fetch.service";
-import {LoadingState} from "../interfaces/loading-state.interface";
+import {LoadingState} from "../models/loading-state.interface";
 import {toLoadingStateStream} from '../to-loading-state-stream';
 import {map} from "rxjs/operators";
-import {Pokemon, PokemonListItem, PokemonSpecies} from "../interfaces/pokemon.interfaces";
+import {Pokemon, PokemonListItem, PokemonSpecies} from "../models/pokemon.interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -58,5 +58,6 @@ export class PokeapiService {
     );
     return toLoadingStateStream(data$);
   }
+
 
 }

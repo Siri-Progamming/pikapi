@@ -1,6 +1,6 @@
 import {Observable, of} from 'rxjs';
 import {catchError, map, startWith} from 'rxjs/operators';
-import {LoadingState, Loaded, Errored, Loading} from './interfaces/loading-state.interface';
+import {LoadingState, Loaded, Errored, Loading} from './models/loading-state.interface';
 
 export function toLoadingStateStream<T>(source$: Observable<T>,): Observable<LoadingState<T>> {
   return source$.pipe(

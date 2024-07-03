@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable, of, switchMap} from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
-import {Pokemon, PokemonListItem} from "../interfaces/pokemon.interfaces";
+import {Pokemon, PokemonListItem} from "../models/pokemon.interfaces";
 import {TranslationService} from "./translation.service";
 
 @Injectable({

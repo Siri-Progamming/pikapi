@@ -1,31 +1,36 @@
 <main class="main">
 
   <div>
-    <h1>Hello, {{ title }}</h1>
+<!--    <h1>Hello, {{ title }}</h1>-->
     <p>Current language : {{ currentLang }}</p>
     <p>{{ 'TEST' | translate }}</p>
     <button (click)="switchLanguage('en')">English</button>
     <button (click)="switchLanguage('fr')">Français</button>
   </div>
 
-  <div *ngIf="pokemonsState$ | async as state">
-    <div *ngIf="state.state === 'loading'">Loading...</div>
-    <div *ngIf="state.state === 'error'">Error: {{ state.error.message }}</div>
-    <div *ngIf="state.state === 'loaded'">
-      <ul id="pokemon-list">
-        <li *ngFor="let pokemon of state.data" (click)="handleClickOnPokemonListItem(pokemon.url)">
-          <!--          <a [href]="pokemon.url">{{ pokemon.name }}</a>-->
-          {{ pokemon.name }}
-        </li>
-      </ul>
+  <div>
+    <div>
+      <app-pokemon-search-bar (search)="receiveSearch($event)"></app-pokemon-search-bar>
+      <p>Recherche : {{ childSearch | async }}</p>
+    </div>
+
+    <div *ngIf="pokemonFiltered$ | async as search">
+      <div *ngIf="search.state === 'loading'">Loading...</div>
+      <div *ngIf="search.state === 'error'">Error: {{ search.error.message }}</div>
+      <div *ngIf="search.state === 'loaded'">
+        <ul id="pokemon-search-list">
+          <li *ngFor="let poke of search.data" (click)="handleClickOnPokemonListItem(poke.url)">{{poke.name}}</li>
+        </ul>
+      </div>
     </div>
   </div>
+
 
   <ng-container *ngIf="pokemonSelectedState$ | async as state">
     <div *ngIf="state.state === 'loading'">
       Loading...
     </div>
-    <div *ngIf="state.state === 'loaded' && state.data" >
+    <div *ngIf="state.state === 'loaded' && state.data">
       <app-card-pokemon [pokemon]="state.data"></app-card-pokemon>
     </div>
     <div *ngIf="state.state === 'error'">

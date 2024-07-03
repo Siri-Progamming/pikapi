@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-pokemon-search-bar',
@@ -8,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './pokemon-search-bar.component.css'
 })
 export class PokemonSearchBarComponent {
+  @Output() search: EventEmitter<string> = new EventEmitter<string>();
 
+  sendSearch(e: KeyboardEvent): void {
+    const htmlElement = e.target as HTMLInputElement;
+    this.search.emit(htmlElement.value);
+  }
 }
