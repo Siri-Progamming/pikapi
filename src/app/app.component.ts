@@ -36,13 +36,11 @@ export class AppComponent implements OnInit {
     this.pokemonsState$ = this.pokeApiService.getAllPokemon();
     this.pokemonFiltered$ = combineLatest([this.pokemonsState$, this.childSearch.asObservable()]).pipe(
       map(([pokemonsState, searchValue]) => {
-        if (pokemonsState.state == 'loaded') {
-          if (searchValue.trim() !== '') {
-            const filteredData = pokemonsState.data.filter(pokemon =>
-              pokemon.name.toLowerCase().startsWith(searchValue.toLowerCase())
-            );
-            return {...pokemonsState, data: filteredData};
-          }
+        if ((pokemonsState.state == 'loaded') && searchValue.trim() !== '') {
+          const filteredData = pokemonsState.data.filter(pokemon =>
+            pokemon.name.toLowerCase().startsWith(searchValue.toLowerCase())
+          );
+          return {...pokemonsState, data: filteredData};
         }
         return pokemonsState;
       })
