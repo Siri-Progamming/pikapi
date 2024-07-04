@@ -1,12 +1,13 @@
 import {Component, Input} from '@angular/core';
 import {Name, Pokemon} from "../../models/pokemon.interfaces";
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-card-pokemon',
   standalone: true,
   imports: [
-    NgIf
+    NgIf,
+    NgForOf
   ],
   templateUrl: './card-pokemon.component.html',
   styleUrl: './card-pokemon.component.css'

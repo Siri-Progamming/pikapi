@@ -1,5 +1,3 @@
-import {setThrowInvalidWriteToSignalError} from "@angular/core/primitives/signals";
-
 export interface PokemonListItem {
   name: string;
   url: string;
@@ -32,7 +30,32 @@ export interface Sprites {
   front_female: string | null;
   front_shiny: string | null;
   front_shiny_female: string | null;
-  //y'en a d'autres
+  other:{
+    // dream_world: {
+    //   front_default: string | null;
+    //   front_female: string | null;
+    // },
+    // home: {
+    //   front_default: string | null;
+    //   front_female: string | null;
+    //   front_shiny: string | null;
+    //   front_shiny_female: string | null;
+    // },
+    'official-artwork': {
+      'front_default': string | null;
+      'front_shiny': string | null;
+    },
+    // showdown: {
+    //   back_default: string | null;
+    //   back_female: string | null;
+    //   back_shiny: string | null;
+    //   back_shiny_female: string | null;
+    //   front_default: string | null;
+    //   front_female: string | null;
+    //   front_shiny: string | null;
+    //   front_shiny_female: string | null;
+    // }
+  }
 }
 
 export interface PokemonSpecies {
@@ -62,11 +85,15 @@ export interface Type {
   //https://pokeapi.co/api/v2/type/10/
   slot: number;
   id: number;
-  name: string; //TRAD : names
+  name: string;
+  names: Name[];
   double_damage_from: Type[];
   double_damage_to: Type[];
   half_damage_from: Type[];
   half_damage_to: Type[];
   no_damage_from: Type[];
   no_damage_to: Type[];
+  type: {
+    url: string;
+  }
 }

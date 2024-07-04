@@ -1,18 +1,17 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RouterOutlet} from "@angular/router";
 import {TranslateModule} from '@ngx-translate/core';
 import {TranslationService} from './services/translation.service';
 import {PokeapiService} from "./services/pokeapi.service";
-import {BehaviorSubject, combineLatest, filter, Observable, of, switchMap, tap} from "rxjs";
+import {BehaviorSubject, combineLatest, Observable, of} from "rxjs";
 import {LoadingState} from "./models/loading-state.interface";
-import {AsyncPipe} from "@angular/common";
-import {CommonModule} from '@angular/common';
+import {AsyncPipe, CommonModule} from "@angular/common";
 import {CardPokemonComponent} from "./components/card-pokemon/card-pokemon.component";
 import {Pokemon, PokemonListItem} from "./models/pokemon.interfaces";
 import {PokemonSearchBarComponent} from "./components/pokemon-search-bar/pokemon-search-bar.component";
 import {map} from "rxjs/operators";
 import {PokemonNameListComponent} from "./components/pokemon-name-list/pokemon-name-list.component";
-
+import {PokemonService} from "./services/pokemon.service";
 
 @Component({
   selector: 'app-root',
@@ -23,7 +22,8 @@ import {PokemonNameListComponent} from "./components/pokemon-name-list/pokemon-n
 })
 
 export class AppComponent implements OnInit {
-  constructor(private translationService: TranslationService, private pokeApiService: PokeapiService) {
+  constructor(private translationService: TranslationService, private pokeApiService: PokeapiService,
+              private pokemonService: PokemonService) {
   }
 
   title = 'pikapi';
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   pokemonFiltered$: Observable<LoadingState<PokemonListItem[]>> = of({state: 'loading'});
 
   ngOnInit(): void {
-    this.pokemonsState$ = this.pokeApiService.getAllPokemon();
+    this.pokemonsState$ = this.pokemonService.getAllPokemon();
     this.pokemonFiltered$ = combineLatest([this.pokemonsState$, this.childSearch.asObservable()]).pipe(
       map(([pokemonsState, searchValue]) => {
         if ((pokemonsState.state == 'loaded') && searchValue.trim() !== '') {
@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
   }
 
   loadSelectedPokemon(url: string) {
-    this.pokemonSelectedState$ = this.pokeApiService.getPokemonWithSpeciesDetails(url);
+    this.pokemonSelectedState$ = this.pokeApiService.getPokemonFullDetails(url);
   }
 
   receiveSearch(searchValue: string): void {

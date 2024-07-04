@@ -18,7 +18,6 @@ export class TranslationService {
     });
   }
 
-
   private initTranslation() {
     this.translate.addLangs(APP_CONFIG.SUPPORTED_LANGUAGES);
     this.translate.setDefaultLang(APP_CONFIG.DEFAULT_LANGUAGE);
@@ -32,4 +31,5 @@ export class TranslationService {
   getCurrentLanguage(): string {
     return this.currentLangSubject.value;
   }
+
 }
