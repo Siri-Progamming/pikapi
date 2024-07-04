@@ -1,7 +1,7 @@
 <main class="main">
 
   <div>
-<!--    <h1>Hello, {{ title }}</h1>-->
+    <!--    <h1>Hello, {{ title }}</h1>-->
     <p>Current language : {{ currentLang }}</p>
     <p>{{ 'TEST' | translate }}</p>
     <button (click)="switchLanguage('en')">English</button>
@@ -9,20 +9,15 @@
   </div>
 
   <div>
-    <div>
-      <app-pokemon-search-bar (search)="receiveSearch($event)"></app-pokemon-search-bar>
-      <p>Recherche : {{ childSearch | async }}</p>
-    </div>
+    <app-pokemon-search-bar (search)="receiveSearch($event)"></app-pokemon-search-bar>
 
-    <div *ngIf="pokemonFiltered$ | async as search">
+    <ng-container *ngIf="pokemonFiltered$ | async as search">
       <div *ngIf="search.state === 'loading'">Loading...</div>
       <div *ngIf="search.state === 'error'">Error: {{ search.error.message }}</div>
       <div *ngIf="search.state === 'loaded'">
-        <ul id="pokemon-search-list">
-          <li *ngFor="let poke of search.data" (click)="handleClickOnPokemonListItem(poke.url)">{{poke.name}}</li>
-        </ul>
+        <app-pokemon-name-list [pokemons]="search.data" (selectPokemon)="loadSelectedPokemon($event)"></app-pokemon-name-list>
       </div>
-    </div>
+    </ng-container>
   </div>
 
 

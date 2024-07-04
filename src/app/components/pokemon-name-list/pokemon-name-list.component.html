@@ -1,0 +1,3 @@
+<ul id="pokemon-search-list">
+  <li *ngFor="let pokemon of pokemons" (click)="sendSelectedPokemon(pokemon.url)">{{ pokemon.name }}</li>
+</ul>

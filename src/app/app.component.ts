@@ -11,12 +11,13 @@ import {CardPokemonComponent} from "./components/card-pokemon/card-pokemon.compo
 import {Pokemon, PokemonListItem} from "./models/pokemon.interfaces";
 import {PokemonSearchBarComponent} from "./components/pokemon-search-bar/pokemon-search-bar.component";
 import {map} from "rxjs/operators";
+import {PokemonNameListComponent} from "./components/pokemon-name-list/pokemon-name-list.component";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TranslateModule, AsyncPipe, CommonModule, CardPokemonComponent, PokemonSearchBarComponent],
+  imports: [RouterOutlet, TranslateModule, AsyncPipe, CommonModule, CardPokemonComponent, PokemonSearchBarComponent, PokemonNameListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -54,8 +55,8 @@ export class AppComponent implements OnInit {
     this.translationService.switchLanguage(lang);
   }
 
-  handleClickOnPokemonListItem(url: string) {
-    this.pokemonSelectedState$ = this.pokeApiService.getPokemonFullDetails(url);
+  loadSelectedPokemon(url: string) {
+    this.pokemonSelectedState$ = this.pokeApiService.getPokemonWithSpeciesDetails(url);
   }
 
   receiveSearch(searchValue: string): void {
