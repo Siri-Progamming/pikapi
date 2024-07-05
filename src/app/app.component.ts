@@ -34,17 +34,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.pokemonsState$ = this.pokemonService.getAllPokemon();
-    this.pokemonFiltered$ = combineLatest([this.pokemonsState$, this.childSearch.asObservable()]).pipe(
-      map(([pokemonsState, searchValue]) => {
-        if ((pokemonsState.state == 'loaded') && searchValue.trim() !== '') {
-          const filteredData = pokemonsState.data.filter(pokemon =>
-            pokemon.name.toLowerCase().startsWith(searchValue.toLowerCase())
-          );
-          return {...pokemonsState, data: filteredData};
-        }
-        return pokemonsState;
-      })
-    );
+    this.filterPokemonList();
   }
 
   switchLanguage(lang: string) {
@@ -57,5 +47,19 @@ export class AppComponent implements OnInit {
 
   receiveSearch(searchValue: string): void {
     this.childSearch.next(searchValue);
+  }
+
+  filterPokemonList() {
+    this.pokemonFiltered$ = combineLatest([this.pokemonsState$, this.childSearch.asObservable()]).pipe(
+      map(([pokemonsState, searchValue]) => {
+        if ((pokemonsState.state == 'loaded') && searchValue.trim() !== '') {
+          const filteredData = pokemonsState.data.filter(pokemon =>
+            pokemon.name.toLowerCase().startsWith(searchValue.toLowerCase())
+          );
+          return {...pokemonsState, data: filteredData};
+        }
+        return pokemonsState;
+      })
+    );
   }
 }

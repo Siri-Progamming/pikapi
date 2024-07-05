@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {forkJoin, Observable, of, switchMap} from 'rxjs';
+import {forkJoin, Observable, switchMap} from 'rxjs';
 import {API_CONFIG} from '../config/api.config';
-import {Pokemon, PokemonListItem, PokemonSpecies, Type} from "../models/pokemon.interfaces";
+import {Pokemon, PokemonListItem, PokemonSpecies, Type, PokemonListItemMultiLang, Name} from "../models/pokemon.interfaces";
 import {TranslationService} from "./translation.service";
 import {map} from "rxjs/operators";
 
@@ -22,6 +22,19 @@ export class PokeapiFetchService {
     console.log('fetching all pokemons');
     return this.http.get<{ results: PokemonListItem[] }>(`${API_CONFIG.pokemon}?offset=0&limit=10000`);
   }
+
+  //TODO
+  /*
+  * Get all names of a pokemon-species by pokemon url
+   */
+//   getAllNamesOfPokemon(url:string):Observable<{ results: Name[] }>{
+//
+// }
+  //TODO
+  // getAllPokemonNamesMultiLang(): Observable<{ results: PokemonListItemMultiLang }> {
+  //
+  //
+  // }
 
   /*
   * Get all details of a pokemon by api url

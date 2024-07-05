@@ -2,7 +2,11 @@ export interface PokemonListItem {
   name: string;
   url: string;
 }
-
+export interface PokemonListItemMultiLang{
+  name:string;
+  url:string;
+  names:Name[];
+}
 export interface Pokemon {
   id: number;
   is_default: boolean;
