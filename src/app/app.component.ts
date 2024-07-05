@@ -27,7 +27,6 @@ export class AppComponent implements OnInit {
   }
 
   title = 'pikapi';
-  currentLang = '';
   childSearch = new BehaviorSubject<string>('');
   pokemonsState$: Observable<LoadingState<PokemonListItem[]>> = of({state: 'loading'});
   pokemonSelectedState$: Observable<LoadingState<Pokemon>> = of({state: 'loading'});
@@ -46,9 +45,6 @@ export class AppComponent implements OnInit {
         return pokemonsState;
       })
     );
-    this.translationService.currentLang$.subscribe(lang => {
-      this.currentLang = lang;
-    });
   }
 
   switchLanguage(lang: string) {

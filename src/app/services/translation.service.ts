@@ -1,20 +1,20 @@
-import {Injectable} from '@angular/core';
+import {Injectable, signal, WritableSignal} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {APP_CONFIG} from '../config/app.config';
-import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TranslationService {
-  private currentLangSubject = new BehaviorSubject<string>(this.translate.currentLang || APP_CONFIG.DEFAULT_LANGUAGE);
-  currentLang$ = this.currentLangSubject.asObservable();
+  currentLang: WritableSignal<string>;
 
   constructor(private translate: TranslateService) {
+    this.currentLang = signal<string>(this.translate.currentLang || APP_CONFIG.DEFAULT_LANGUAGE);
+
     this.initTranslation();
 
     this.translate.onLangChange.subscribe((event) => {
-      this.currentLangSubject.next(event.lang);
+      this.currentLang.set(event.lang);
     });
   }
 
@@ -27,9 +27,4 @@ export class TranslationService {
   switchLanguage(lang: string) {
     this.translate.use(lang);
   }
-
-  getCurrentLanguage(): string {
-    return this.currentLangSubject.value;
-  }
-
 }
