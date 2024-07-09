@@ -1,8 +1,13 @@
-<p>{{ getTranslatedName(pokemon.species.names, 'en') }} - {{ getTranslatedName(pokemon.species.names, 'fr') }} - {{ getTranslatedName(pokemon.species.names, 'ja-Hrkt') }}</p>
+<p>
+  {{ translationService.getTranslation(pokemon.species.names, 'name', translationService.LANGUAGES.ENGLISH) }}
+  - {{ translationService.getTranslation(pokemon.species.names, 'name',  translationService.LANGUAGES.FRENCH) }}
+  - {{ translationService.getTranslation(pokemon.species.names, 'name', translationService.LANGUAGES.JAPANESE) }}
+</p>
+<p>genera : {{ translationService.getTranslationAuto(pokemon.species.genera, 'genus') }}</p>
+<img id="official-artwork" src="{{ pokemon.sprites.other['official-artwork'].front_default }}"
+     alt="official_artwork_front_default"/>
 
-<img id="official-artwork" src="{{ pokemon.sprites.other['official-artwork'].front_default }}" alt="official_artwork_front_default"/>
-
-<p *ngFor="let type of pokemon.types">{{ getTranslatedName(type.names,'fr') }}</p>
+<p *ngFor="let type of pokemon.types">{{ translationService.getTranslationAuto(type.names, 'name') }}</p>
 
 <table>
   <caption>Default Sprites</caption>

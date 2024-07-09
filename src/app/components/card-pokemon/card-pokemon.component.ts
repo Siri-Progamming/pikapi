@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {Name, Pokemon} from "../../models/pokemon.interfaces";
+import {Pokemon} from "../../models/pokemon.interfaces";
 import {NgForOf, NgIf} from "@angular/common";
+import {TranslationService} from "../../services/translation.service";
 
 @Component({
   selector: 'app-card-pokemon',
@@ -15,8 +16,7 @@ import {NgForOf, NgIf} from "@angular/common";
 export class CardPokemonComponent {
   @Input() pokemon!: Pokemon;
 
-  getTranslatedName(names: Name[], lang: string): string {
-    const translatedName = names.find(name => name.language.name === lang);
-    return translatedName ? translatedName.name : 'N/A';
+  constructor(protected translationService: TranslationService) {
   }
+
 }

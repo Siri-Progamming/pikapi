@@ -2,8 +2,8 @@
 
   <div>
     <p>{{ 'TEST' | translate }}</p>
-    <button (click)="switchLanguage('en')">English</button>
-    <button (click)="switchLanguage('fr')">Français</button>
+    <button (click)="switchLanguage(translationService.LANGUAGES.ENGLISH)">English</button>
+    <button (click)="switchLanguage(translationService.LANGUAGES.FRENCH)">Français</button>
   </div>
 
   <div>

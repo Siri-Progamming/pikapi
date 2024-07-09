@@ -19,12 +19,14 @@ export interface Pokemon {
 }
 
 export interface Name {
-  language: {
-    name: string;
-  }
+  language: Language;
   name: string;
 }
 
+export interface Language {
+  name: string;
+  url: string;
+}
 export interface Sprites {
   back_default: string | null;
   back_female: string | null;
@@ -72,7 +74,7 @@ export interface PokemonSpecies {
   //evolves_from_species
   //flavor_text_entries
   gender_rate: number;
-  genera: string; //trad! /language contains fr -> /genus
+  genera: Genera[]; //trad! /language contains fr -> /genus
   generation: string;
   growth_rate: string; //trad https://pokeapi.co/api/v2/growth-rate/4/
   habitat: string; //trad https://pokeapi.co/api/v2/pokemon-habitat/4/
@@ -85,6 +87,10 @@ export interface PokemonSpecies {
   url: string;
 }
 
+export interface Genera{
+  genus:string;
+  language:Language;
+}
 export interface Type {
   //https://pokeapi.co/api/v2/type/10/
   slot: number;

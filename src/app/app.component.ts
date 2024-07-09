@@ -22,7 +22,7 @@ import {PokemonService} from "./services/pokemon.service";
 })
 
 export class AppComponent implements OnInit {
-  constructor(private translationService: TranslationService, private pokeApiService: PokeapiService,
+  constructor(protected translationService: TranslationService, private pokeApiService: PokeapiService,
               private pokemonService: PokemonService) {
   }
 
